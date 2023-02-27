@@ -1,8 +1,13 @@
 
 .product__item{
     cursor: pointer;
+
 }
 
+.product__img img{
+    min-height: 306px;
+    object-fit: contain
+}
 .product__info h3{
     font-size: 1.2rem;
     color:var(--primary-color);
@@ -32,6 +37,9 @@
 @media only screen and (max-width:992px){
     .product__info h3 a{
         font-size: 1.1rem;
+    }
+    .product__img img{
+        min-height: 216px
     }
 }
 @media only screen and (max-width:768px){

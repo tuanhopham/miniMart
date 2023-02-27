@@ -1,15 +1,36 @@
-import React from "react";
 import { motion } from "framer-motion";
-import "../../styles/product-card.css";
-import { Col } from "reactstrap";
+import React from "react";
 import { Link } from "react-router-dom";
-export const ProductCard = ({item}) => {
+import { toast } from "react-toastify";
+import { Col } from "reactstrap";
+import "../../styles/product-card.css";
+
+import { useDispatch } from "react-redux";
+import { cartACtions } from "../../redux/slices/cartSlice";
+
+export const ProductCard = ({ item }) => {
+  const dispatch = useDispatch();
+  const addToCart = () => {
+    dispatch(
+      cartACtions.addItem({
+        id: item.id,
+        productName: item.productName,
+        price: item.price,
+        imgUrl: item.imgUrl,
+      })
+    );
+    toast.success(`Added ${item.productName} successful`);
+  };
+
   return (
-    <Col lg="3" md='4'  className="mb-2">
+    <Col lg="3" md="4" className="mb-2">
       <div className="product__item">
         <div className="product__img">
-          <motion.img whileHover={{ scale: 0.9 }} src={item.imgUrl} alt="" />
+          <Link to={`/shop/${item.id}`}>
+            <motion.img whileHover={{ scale: 0.9 }} src={item.imgUrl} alt="" />
+          </Link>
         </div>
+
         <div className="p-2 product__info">
           <h3 className="product__name">
             <Link to={`/shop/${item.id}`}>{item.productName}</Link>
@@ -21,7 +42,7 @@ export const ProductCard = ({item}) => {
                     justify-content-between p-2"
         >
           <span className="price">${item.price}</span>
-          <motion.span whileTap={{ scale: 1.2 }}>
+          <motion.span whileTap={{ scale: 1.2 }} onClick={addToCart}>
             <i className="ri-add-line"></i>
           </motion.span>
         </div>
