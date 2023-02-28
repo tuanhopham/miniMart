@@ -31,20 +31,21 @@ export const Shop = () => {
 
   useEffect(() => {
     let sortedProducts = [...products];
-    
+
     if (categoryOption || searchValue) {
-      sortedProducts = sortedProducts.filter((item) =>
-        item.productName.toLowerCase().includes(debounceSearchValue.toLowerCase()) &&
-        (categoryOption ? item.category === categoryOption : true)
+      sortedProducts = sortedProducts.filter(
+        (item) =>
+          item.productName
+            .toLowerCase()
+            .includes(debounceSearchValue.toLowerCase()) &&
+          (categoryOption ? item.category === categoryOption : true)
       );
     }
-  
-    if (sortOption === "ascending") {
-      sortedProducts.sort((a, b) => a.price - b.price);
-    } else if (sortOption === "descending") {
-      sortedProducts.sort((a, b) => b.price - a.price);
-    }
-    
+    if (sortOption !== "")
+      sortedProducts.sort((a, b) =>
+        sortOption === "ascending" ? a.price - b.price : b.price - a.price
+      );
+
     setProductsData(sortedProducts);
   }, [categoryOption, debounceSearchValue, sortOption, products, searchValue]);
 
@@ -55,7 +56,7 @@ export const Shop = () => {
       <section>
         <Container>
           <Row>
-            <Col lg="3" md="3">
+            <Col lg="3" md="6">
               <div className="filter__widget">
                 <select value={categoryOption} onChange={handleFilter}>
                   <option value="">Filter By Category</option>
@@ -67,7 +68,7 @@ export const Shop = () => {
                 </select>
               </div>
             </Col>
-            <Col lg="3" md="3">
+            <Col lg="3" md="6" className="text-end">
               <div className="filter__widget">
                 <select value={sortOption} onChange={handleSort}>
                   <option value="">Sort By </option>
@@ -77,7 +78,7 @@ export const Shop = () => {
                 </select>
               </div>
             </Col>
-            <Col lg="6" md="6">
+            <Col lg="6" md="12">
               <div className="search__box">
                 <input
                   type="text"
@@ -98,7 +99,7 @@ export const Shop = () => {
         <Container>
           <Row>
             {productsData.length === 0 ? (
-              <h1>No product are found!</h1>
+              <h1 className='text-center fs-4'>{`No product have name "${debounceSearchValue}" are found!`}</h1>
             ) : (
               <ProductsList data={productsData} />
             )}

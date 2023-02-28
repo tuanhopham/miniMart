@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./header.css";
 
 import { motion } from "framer-motion";
@@ -18,7 +18,7 @@ const nav__link = [
 export const Header = () => {
   const headerRef = useRef(null);
   const totalQuantity = useSelector(state => state.cart.totalQuantily)
-  console.log(totalQuantity)
+
   const menuRef = useRef(null);
 
   const stickyHeaderFunc = () => {
@@ -74,8 +74,10 @@ export const Header = () => {
                 <i class="ri-heart-line"></i>
                 <span className="badge">10</span>
               </span>
-              <span className="cart__icon">
+              <span className="cart__icon" >
+              <Link to='/cart'>
                 <i class="ri-shopping-bag-line"></i>
+                </Link>
                 <span className="badge">{totalQuantity}</span>
               </span>
               <span>
