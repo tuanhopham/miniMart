@@ -16,5 +16,10 @@
 
 }
 .checkout__cart h6{
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+}
+.checkout__cart h4{
+   border-top:1px solid rgba(211, 211, 211, 0.253);
+   padding-top: 20px;
+   
 }
