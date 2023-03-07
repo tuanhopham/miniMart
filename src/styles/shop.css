@@ -8,7 +8,14 @@
     background: var(--primary-color);
     color: #fff;
 }
+.filter__widget-sub select{
+    padding: 5px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    color: var(--primary-color);
 
+}
+.filter__widget-sub select:focus,
 .filter__widget select:focus{
     outline: none !important;
 }
@@ -40,11 +47,17 @@
  
 
 @media only screen and (max-width:768px){
-    .fulter__widget{
-        margin-bottom: 30px;
+    .filter__widget{
+        margin-bottom: 10px;
     }
+    .filter__widget-sub{
+        margin-top: 10px;
+
+    }
+    .filter__widget-sub select,
     .filter__widget select{
         padding: 7px 20px;
         font-size: 0.9rem;
+        width: 100%;
     }
 }

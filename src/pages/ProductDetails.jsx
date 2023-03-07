@@ -35,7 +35,7 @@ export const ProductDetails = () => {
   const reviewUser = useRef("");
   const reviewMsg = useRef("");
 
-  const product = products.find((item) => item.id === Number(id));
+  const product = products.find((item) => item.id === id);
   const {productName,imgUrl,category,shortDesc,reviews,description,price} = product
   const relatedProducts = products.filter(
     (item) => item.category === products.category && item !== product
