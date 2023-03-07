@@ -32,7 +32,7 @@ export const AdminNav = () => {
           <Container>
             <div className="admin__nav-wrapper-top">
               <div className="logo">
-                <h2>Multimart</h2>
+                <h2>Mini mart</h2>
               </div>
               <div className="search__box">
                 <input type="text" placeholder="Search...." />

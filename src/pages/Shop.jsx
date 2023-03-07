@@ -4,12 +4,13 @@ import { CommonSection } from "../components/UI/CommonSection";
 import Helmet from "./../components/Helmet/Helmet";
 import "../styles/shop.css";
 import { useDebounce } from "use-debounce";
-import products from "./../assets/data/products";
 import { ProductsList } from "./../components/UI/ProductsList";
-import { categorys } from "./../assets/data/category";
+import { useSelector } from 'react-redux';
 
 export const Shop = () => {
-  const [productsData, setProductsData] = useState(products);
+  const products = useSelector((state) => state.products.productsList);
+  const categorys = useSelector((state) => state.products.categorys);
+  const [productsData, setProductsData] = useState([]);
 
   const [categoryOption, setCategoryOption] = useState("");
 
@@ -61,8 +62,8 @@ export const Shop = () => {
                 <select value={categoryOption} onChange={handleFilter}>
                   <option value="">Filter By Category</option>
                   {categorys.map((category, index) => (
-                    <option key={index} value={category}>
-                      {category}
+                    <option key={index} value={category.name}>
+                      {category.name}
                     </option>
                   ))}
                 </select>

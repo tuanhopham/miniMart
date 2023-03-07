@@ -46,6 +46,7 @@ const products = [
       },
     ],
     avgRating: 4.5,
+    quality:100,
   },
 
   {
@@ -69,6 +70,7 @@ const products = [
       },
     ],
     avgRating: 4.7,
+    quality:100,
   },
 
   {
@@ -92,6 +94,7 @@ const products = [
       },
     ],
     avgRating: 4.7,
+    quality:100,
   },
   {
     id: "26",
@@ -114,6 +117,7 @@ const products = [
       },
     ],
     avgRating: 4.7,
+    quality:100,
   },
   {
     id: "04",
@@ -136,6 +140,7 @@ const products = [
       },
     ],
     avgRating: 4.7,
+    quality:100,
   },
 
   {
@@ -159,6 +164,7 @@ const products = [
       },
     ],
     avgRating: 4.7,
+    quality:100,
   },
 
   {
@@ -182,6 +188,7 @@ const products = [
       },
     ],
     avgRating: 4.7,
+    quality:100,
   },
   {
     id: "07",
@@ -204,6 +211,7 @@ const products = [
       },
     ],
     avgRating: 4.7,
+    quality:100,
   },
 
   {
@@ -227,6 +235,7 @@ const products = [
       },
     ],
     avgRating: 4.7,
+    quality:100,
   },
 
   {
@@ -250,6 +259,7 @@ const products = [
       },
     ],
     avgRating: 4.7,
+    quality:100,
   },
 
   {
@@ -273,6 +283,7 @@ const products = [
       },
     ],
     avgRating: 4.7,
+    quality:100,
   },
 
   {
@@ -296,12 +307,14 @@ const products = [
       },
     ],
     avgRating: 4.8,
+    quality:100,
   },
   {
     id: "25",
     productName: "Sakarias Armchair",
     imgUrl: productImg10,
     category: "chair",
+    
     price: 99,
     shortDesc:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur iure quas illo voluptates labore tempore!",
@@ -318,6 +331,7 @@ const products = [
       },
     ],
     avgRating: 4.7,
+    quality:100,
   },
   {
     id: "11",
@@ -340,6 +354,7 @@ const products = [
       },
     ],
     avgRating: 4.8,
+    quality:100,
   },
 
   {
@@ -363,6 +378,7 @@ const products = [
       },
     ],
     avgRating: 4.8,
+    quality:100,
   },
 
   {
@@ -386,6 +402,7 @@ const products = [
       },
     ],
     avgRating: 4.8,
+    quality:100,
   },
 
   {
@@ -409,6 +426,7 @@ const products = [
       },
     ],
     avgRating: 4.8,
+    quality:100,
   },
 
   {
@@ -432,6 +450,7 @@ const products = [
       },
     ],
     avgRating: 4.8,
+    quality:100,
   },
 
   {
@@ -455,6 +474,7 @@ const products = [
       },
     ],
     avgRating: 4.8,
+    quality:100,
   },
 
   {
@@ -478,6 +498,7 @@ const products = [
       },
     ],
     avgRating: 4.8,
+    quality:100,
   },
 
   {
@@ -501,6 +522,7 @@ const products = [
       },
     ],
     avgRating: 4.8,
+    quality:100,
   },
 
   {
@@ -524,6 +546,7 @@ const products = [
       },
     ],
     avgRating: 4.8,
+    quality:100,
   },
 
   {
@@ -547,6 +570,7 @@ const products = [
       },
     ],
     avgRating: 4.8,
+    quality:100,
   },
 
   {
@@ -570,6 +594,7 @@ const products = [
       },
     ],
     avgRating: 4.8,
+    quality:100,
   },
 ];
 
