@@ -19,6 +19,9 @@ const productsSlice = createSlice({
     setCategory: (state, action) => {
       state.categorys = action.payload;
     },
+    addProducts: (state, action) => {
+      state.productsList.push(action.payload);
+    },
   },
 });
 

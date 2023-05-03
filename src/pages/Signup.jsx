@@ -44,7 +44,7 @@ export const Signup = () => {
             });
 
             //store user data in firestore database
-            await setDoc(doc(db, "users", user.uid), {
+            await setDoc(doc(db, "users", email), {
               uid: user.uid,
               displayName: userName,
               email,
@@ -81,6 +81,8 @@ export const Signup = () => {
                       placeholder="User Name"
                       value={userName}
                       onChange={(e) => setUserName(e.target.value)}
+                      required
+
                     />
                   </FormGroup>
                   <FormGroup className="form__group">
@@ -89,6 +91,8 @@ export const Signup = () => {
                       placeholder="Enter your email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      required
+
                     />
                   </FormGroup>
                   <FormGroup className="form__group">
@@ -97,12 +101,16 @@ export const Signup = () => {
                       placeholder="Enter your password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
+                      required
+
                     />
                   </FormGroup>
                   <FormGroup className="form__group">
                     <input
                       type="file"
+                      accept="image/*"
                       onChange={(e) => setFile(e.target.files[0])}
+                      required
                     />
                   </FormGroup>
                   <button type="submit" className="buy_btn auth__btn">

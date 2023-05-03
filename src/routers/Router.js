@@ -23,7 +23,7 @@ export const AppRouter = () => {
       <Route path="/*" element={<ProtectedRoute />}>
         <Route path="checkout" element={<Checkout />}/>
         <Route path="dashboard/all-products" element={<AllProducts />}/>
-        <Route path="dashboard/add-product" element={<AddProducts/>}/>
+        {/* <Route path="dashboard/add-product" element={<AddProducts/>}/> */}
         <Route path="dashboard" element={<Dashboard/>}/>
       </Route>
       

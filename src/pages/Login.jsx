@@ -22,8 +22,8 @@ export const Login = () => {
         email,
         password
       );
-      const user = userCredential.user;
-      console.log(user);
+    
+  
       setLoading(false);
       toast.success("Loign success");
       navigate("/checkout");
