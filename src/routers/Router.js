@@ -9,7 +9,7 @@ import { Signup } from "../pages/Signup";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ProtectedRoute } from "./ProtectedRoute";
 
-import { AddProducts } from "../admin/AddProducts";
+import { AddProducts } from "../admin/product/AddProducts";
 import { AllProducts } from "../admin/AllProducts";
 import { Dashboard } from './../admin/Dashboard';
 

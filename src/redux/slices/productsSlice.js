@@ -22,6 +22,15 @@ const productsSlice = createSlice({
     addProducts: (state, action) => {
       state.productsList.push(action.payload);
     },
+    setProduct: (state, action) => {
+     const newData = state.productsList.map((item) => {
+        if (item.id === action.payload.id) {
+          return action.payload;
+        }
+        return item
+      });
+      state.productsList = newData
+    },
   },
 });
 

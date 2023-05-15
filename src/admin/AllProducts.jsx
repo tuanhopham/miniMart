@@ -4,18 +4,26 @@ import ReactPaginate from "react-paginate";
 import { useSelector } from "react-redux";
 import { Button, Col, Container, Form, Modal, Row } from "reactstrap";
 import Helmet from "./../components/Helmet/Helmet";
-import { AddProducts } from './AddProducts'
+import { AddProducts } from './product/AddProducts'
+import { EditProducts } from './product/EditProducts'
 
 export const AllProducts = () => {
   const [modal, setModal] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
+  const [product, setproduct] = useState({});
+  const handleEdit = (e) => {
+    setproduct(e);
+    toggleEdit();
+  };
 
 
  
   const toggle = () => setModal(!modal);
+  const toggleEdit = () => setModalEdit(!modalEdit);
 
 
   // Số sản phẩm hiển thị trên mỗi trang
-  const productsPerPage = 10;
+  const productsPerPage = 5;
 
   // Vị trí sản phẩm bắt đầu hiển thị trên trang hiện tại
   const [productOffset, setProductOffset] = useState(0);
@@ -36,11 +44,6 @@ export const AllProducts = () => {
   const handlePageClick = (event) => {
     // Tính vị trí sản phẩm bắt đầu hiển thị trên trang mới
     const newOffset = (event.selected * productsPerPage) % products.length;
-
-    // In ra console để kiểm tra
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
 
     // Cập nhật vị trí sản phẩm bắt đầu hiển thị trên trang mới
     setProductOffset(newOffset);
@@ -65,12 +68,13 @@ export const AllProducts = () => {
                         <th>Title</th>
                         <th>Price</th>
                         <th>Qty</th>
-                        <th>Delete</th>
+                        <th className="d-flex justify-content-around">Func</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                       {currentProducts.map((product, index) => (
-                        <tr>
+                        
+                        <tr className="align-middle">
                           <td>
                             <img src={product.imgUrl[0]} alt="" />
                           </td>
@@ -80,10 +84,20 @@ export const AllProducts = () => {
                           <td>
                             <motion.i
                               // onClick ={deleteProduct}
+                              style={{ fontSize:20 ,}}
+
                               whileTap={{ scale: 1.2 }}
                               class="ri-delete-bin-line"
                             ></motion.i>
+                               <motion.i
+                              onClick ={()=>handleEdit(product)}
+
+                              style={{float:"right", fontSize:20}}
+                              whileTap={{ scale: 1.2 }}
+                              class="ri-edit-line"
+                            > </motion.i>
                           </td>
+                       
                         </tr>
                       ))}
                     </tbody>
@@ -111,6 +125,8 @@ export const AllProducts = () => {
         renderOnZeroPageCount={null}
       />
    <AddProducts toggle={toggle} modal={modal}/>
+  
+   <EditProducts toggle={toggleEdit} modal={modalEdit} product={product}/>
     </div>
   );
 };

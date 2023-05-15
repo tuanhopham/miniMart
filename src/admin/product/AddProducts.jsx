@@ -14,11 +14,12 @@ import {
 } from "reactstrap";
 import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { addProductApi } from "../api/addProductApi";
+import { addProductApi } from "../../api/addProductApi";
 import { toast } from 'react-toastify';
-import { uploadFiles } from './../api/uploadImagesApi';
+import { uploadFiles } from '../../api/uploadImagesApi';
 import { useDispatch } from 'react-redux';
-import { productsACtions } from './../redux/slices/productsSlice';
+import { productsACtions } from '../../redux/slices/productsSlice';
+import { useEffect } from "react";
 
 export const AddProducts = (props) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -31,7 +32,7 @@ export const AddProducts = (props) => {
     category: "",
     material: "",
     type: "",
-    size: " ",
+    size: "0",
     price: 0,
     quality: 0,
     description: "",
@@ -66,13 +67,14 @@ export const AddProducts = (props) => {
       category: "",
       material: "",
       type: "",
-      size: " ",
+      size: "0",
       price: 0,
       quality: 0,
       description: "",
       shortDesc: "",
       reviews:[],
-    })
+    });
+    setSelectedFiles([]);
       dispatch(productsACtions.addProducts(data));
 
       addProductApi(data);
@@ -108,7 +110,6 @@ export const AddProducts = (props) => {
         [name]: value,
         type: "",
         material: "",
-        size: "",
       }));
     } else {
       setMaterialsList(
@@ -166,6 +167,10 @@ export const AddProducts = (props) => {
       img.src = imageDataUrl;
     });
   };
+  useEffect(() => {
+    console.log(selectedFiles)
+  }, [selectedFiles])
+  
   return (
     <div>
       <Form>
