@@ -56,7 +56,9 @@ export const ProductDetails = () => {
   };
 
   const addToCart = () => {
+    
     dispatch(
+
       cartACtions.addItem({
         id,
         image: products.imgUrl[0],

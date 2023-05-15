@@ -1,27 +1,34 @@
 import { motion } from "framer-motion";
-import React from "react";
+import React ,{useEffect} from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Col } from "reactstrap";
 import "../../styles/product-card.css";
-
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { cartACtions } from "../../redux/slices/cartSlice";
 
 export const ProductCard = ({ item }) => {
+  // const cartItems = useSelector((state) => state.cart.cartItems);
+  // const products = useSelector((state) => state.products.productsList);
+  // const totalAmount = useSelector((state) => state.cart.totalAmount);
+  const {cartItems,products,totalAmount} = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const addToCart = () => {
+    
     dispatch(
       cartACtions.addItem({
         id: item.id,
         productName: item.productName,
         price: item.price,
-        imgUrl: item.imgUrl,
+        imgUrl: item.imgUrl[0],
       })
+   
     );
+  
     toast.success(`Added ${item.productName} successful`);
   };
-
+  
   return (
     <Col lg="3" md="4" className="mb-2">
       <div className="product__item">

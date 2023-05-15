@@ -31,8 +31,7 @@ export const Cart = () => {
       }
 
       if (!hasProductExceedQuantity) {
-        // navigate("/checkout");
-        console.log(cart);
+        navigate("/checkout");
       }
     }
   };

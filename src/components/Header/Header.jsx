@@ -32,7 +32,6 @@ export const Header = () => {
   const photoURL = useSelector((state) => state.user.photoURL);
   const email = useSelector((state) => state.user.email);
 
-  
 
   const stickyHeaderFunc = () => {
     window.addEventListener("scroll", () => {
