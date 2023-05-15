@@ -6,11 +6,12 @@ import { motion } from "framer-motion";
 import { Container, Row } from "reactstrap";
 import logo from "../../assets/images/eco-logo.png";
 import userIcon from "../../assets/images/user-icon.png";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { useAuth } from "../../custom-hooks/useAuth";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase.config";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import { userACtions } from './../../redux/slices/userSlice';
 
 const nav__link = [
   { path: "home", display: "Home" },
@@ -22,11 +23,16 @@ const nav__link = [
 ];
 export const Header = () => {
   const headerRef = useRef(null);
+  const dispatch = useDispatch();
+
   const totalQuantity = useSelector((state) => state.cart.totalQuantily);
   const profileActionRef = useRef(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const menuRef = useRef(null);
-  const { currentUser } = useAuth();
+  const photoURL = useSelector((state) => state.user.photoURL);
+  const email = useSelector((state) => state.user.email);
+
+  
 
   const stickyHeaderFunc = () => {
     window.addEventListener("scroll", () => {
@@ -42,13 +48,16 @@ export const Header = () => {
   };
 
   const logout = () => {
-    signOut(auth).then(()=>{
-      toast.success('Logged out')
-      navigate('home')
-    }).catch(err=>{
-      toast.error(err.message)
-    })
-  }
+    signOut(auth)
+      .then(() => {
+        dispatch(userACtions.deleteUser());
+        toast.success("Logged out");
+        navigate("home");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  };
 
   useEffect(() => {
     stickyHeaderFunc();
@@ -90,12 +99,12 @@ export const Header = () => {
             </div>
             <div className="nav__icons">
               <span className="fav__icon">
-                <i class="ri-heart-line"></i>
+                <i className="ri-heart-line"></i>
                 <span className="badge">10</span>
               </span>
               <span className="cart__icon">
                 <Link to="/cart">
-                  <i class="ri-shopping-bag-line"></i>
+                  <i className="ri-shopping-bag-line"></i>
                 </Link>
                 <span className="badge">{totalQuantity}</span>
               </span>
@@ -103,7 +112,7 @@ export const Header = () => {
                 <motion.img
                   className="rounded-circle"
                   whileTap={{ scale: 1.2 }}
-                  src={currentUser ? currentUser.photoURL : userIcon}
+                  src={photoURL ? photoURL : userIcon}
                   alt="userIcon"
                   onClick={toggleProfileActions}
                 />
@@ -113,7 +122,7 @@ export const Header = () => {
                   ref={profileActionRef}
                   onClick={toggleProfileActions}
                 >
-                  {currentUser ? (
+                  {email ? (
                     <span onClick={logout}>Logout</span>
                   ) : (
                     <div className="d-flex align-items-center justify-content-center flex-column">
@@ -126,7 +135,7 @@ export const Header = () => {
               </div>
               <div className="mobile__menu">
                 <span onClick={menuToggle}>
-                  <i class="ri-menu-line"></i>
+                  <i className="ri-menu-line"></i>
                 </span>
               </div>
             </div>

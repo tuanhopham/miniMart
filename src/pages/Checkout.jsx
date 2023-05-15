@@ -33,12 +33,7 @@ export const Checkout = () => {
                 <FormGroup className="form__group">
                   <input type="text" placeholder="City" />
                 </FormGroup>
-                <FormGroup className="form__group">
-                  <input type="text" placeholder="Postal code" />
-                </FormGroup>
-                <FormGroup className="form__group">
-                  <input type="text" placeholder="Country" />
-                </FormGroup>
+            
               </Form>
             </Col>
             <Col lg="4">

@@ -27,7 +27,12 @@ export const ProductCard = ({ item }) => {
       <div className="product__item">
         <div className="product__img">
           <Link to={`/shop/${item.id}`}>
-            <motion.img whileHover={{ scale: 0.9 }} src={item.imgUrl} alt="" />
+          <motion.img
+          whileHover={{ scale: 0.9 }}
+          src={item.imgUrl}
+          alt=""
+          style={{ width: '100%', height: '150px', objectFit: 'cover' }}
+        />
           </Link>
         </div>
 

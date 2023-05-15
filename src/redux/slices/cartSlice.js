@@ -52,6 +52,24 @@ const cartSlice = createSlice({
       );
   
     },
+    changeQuantityItem: (state, action) => {
+      const { itemId, quantity } = action.payload;
+      const item = state.cartItems.find((item) => item.id === itemId);
+      if (item) {
+        const quantityDiff = quantity - item.quantity;
+        item.quantity = quantity;
+        item.totalPrice = Number(item.totalPrice) + Number(item.price) * quantityDiff;
+    
+        state.totalQuantily += quantityDiff;
+        state.totalAmount = state.cartItems.reduce(
+          (total, item) => total + Number(item.price) * Number(item.quantity), 0
+        );
+      }
+    },
+    setItem: (state, action) => {
+      
+    }
+    
   },
  
 });

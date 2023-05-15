@@ -13,7 +13,6 @@ import {
 } from "reactstrap";
 import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { addProductApi } from "../../api/addProductApi";
 import { editProductApi } from "../../api/editProductApi";
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
@@ -61,7 +60,6 @@ export const EditProducts = (props) => {
     
       
     }
-    console.log(data);
     props.toggle();
     setFormData({
       productName: "",

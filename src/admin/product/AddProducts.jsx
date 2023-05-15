@@ -32,7 +32,7 @@ export const AddProducts = (props) => {
     category: "",
     material: "",
     type: "",
-    size: "0",
+    size: " ",
     price: 0,
     quality: 0,
     description: "",

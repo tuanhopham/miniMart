@@ -64,15 +64,15 @@ export const Footer = () => {
               <h4 className="quick__links-title">Contact</h4>
               <ListGroup className="footer_contact">
                 <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-2">
-                  <span><i class="ri-map-pin-line"></i></span>
+                  <span><i className="ri-map-pin-line"></i></span>
                   <p>123,Doc Thiet, Vinh, Nghe An</p>
                 </ListGroupItem>
                 <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-2">
-                <span><i class="ri-phone-line"></i></span>
+                <span><i className="ri-phone-line"></i></span>
                   <p>+84 563 141 612</p>
                 </ListGroupItem>
                 <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-2">
-                <span><i class="ri-mail-line"></i></span>
+                <span><i className="ri-mail-line"></i></span>
                   <p>minhtuanpham2111@gmail.com</p>
                 </ListGroupItem>
      

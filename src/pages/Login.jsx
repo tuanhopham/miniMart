@@ -6,6 +6,8 @@ import "../styles/login.css";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase.config";
 import { toast } from "react-toastify";
+import {  useDispatch } from "react-redux";
+import { userACtions } from './../redux/slices/userSlice';
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,6 +15,8 @@ export const Login = () => {
 
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+ 
   const signIn = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -22,8 +26,11 @@ export const Login = () => {
         email,
         password
       );
-    
-  
+      dispatch(userACtions.addUser({
+        displayName: userCredential.user.displayName,
+        email: userCredential.user.email,
+        photoURL: userCredential.user.photoURL,
+      }));
       setLoading(false);
       toast.success("Loign success");
       navigate("/checkout");

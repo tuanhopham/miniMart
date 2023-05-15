@@ -2,8 +2,10 @@ import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import { useAuth } from "../custom-hooks/useAuth";
 import "../styles/admin-nav.css";
+import userIcon from "../assets/images/user-icon.png";
 
 import { NavLink } from "react-router-dom";
+import { useSelector } from 'react-redux';
 const admin__nav = [
   {
     display: "Dashboard",
@@ -24,7 +26,8 @@ const admin__nav = [
 ];
 
 export const AdminNav = () => {
-  const { currentUser } = useAuth();
+  const photoURL = useSelector((state) => state.user.photoURL);
+  console.log(photoURL);
   return (
     <>
       <header className="admin__header">
@@ -37,17 +40,17 @@ export const AdminNav = () => {
               <div className="search__box">
                 <input type="text" placeholder="Search...." />
                 <span>
-                  <i class="ri-search-line"></i>
+                  <i className="ri-search-line"></i>
                 </span>
               </div>
               <div className="admin__nav-top-right">
                 <span>
-                  <i class="ri-notification-3-line"></i>
+                  <i className="ri-notification-3-line"></i>
                 </span>
                 <span>
-                  <i class="ri-settings-2-line"></i>
+                  <i className="ri-settings-2-line"></i>
                 </span>
-                <img src={currentUser.photoURL} alt="" />
+                <img src={photoURL ? photoURL : userIcon} alt="" />
               </div>
             </div>
           </Container>

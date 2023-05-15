@@ -4,9 +4,12 @@ import ReactPaginate from "react-paginate";
 import { useSelector } from "react-redux";
 import { Button, Col, Container, Form, Modal, Row } from "reactstrap";
 import Helmet from "./../components/Helmet/Helmet";
-import { AddProducts } from './product/AddProducts'
-import { EditProducts } from './product/EditProducts'
-
+import { AddProducts } from "./product/AddProducts";
+import { EditProducts } from "./product/EditProducts";
+import { deleteProductApi } from "../api/deleteProductApi";
+import { useDispatch } from "react-redux";
+import { productsACtions } from "./../redux/slices/productsSlice";
+import './stylesAdmin/pagination.css';
 export const AllProducts = () => {
   const [modal, setModal] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
@@ -16,11 +19,8 @@ export const AllProducts = () => {
     toggleEdit();
   };
 
-
- 
   const toggle = () => setModal(!modal);
   const toggleEdit = () => setModalEdit(!modalEdit);
-
 
   // Số sản phẩm hiển thị trên mỗi trang
   const productsPerPage = 5;
@@ -48,7 +48,13 @@ export const AllProducts = () => {
     // Cập nhật vị trí sản phẩm bắt đầu hiển thị trên trang mới
     setProductOffset(newOffset);
   };
-
+  const dispatch = useDispatch();
+  const deleteProduct = async (product) => {
+    if (product) {
+      const check = await deleteProductApi(product?.productName);
+      check &&   dispatch(productsACtions.deleteProduct(product));
+    }
+  };
   return (
     <div>
       <Helmet title="Cart">
@@ -71,9 +77,8 @@ export const AllProducts = () => {
                         <th className="d-flex justify-content-around">Func</th>
                       </tr>
                     </thead>
-                    <tbody >
+                    <tbody>
                       {currentProducts.map((product, index) => (
-                        
                         <tr className="align-middle">
                           <td>
                             <img src={product.imgUrl[0]} alt="" />
@@ -83,21 +88,20 @@ export const AllProducts = () => {
                           <td>{product.quality}</td>
                           <td>
                             <motion.i
-                              // onClick ={deleteProduct}
-                              style={{ fontSize:20 ,}}
-
+                              onClick={() => deleteProduct(product)}
+                              style={{ fontSize: 20 }}
                               whileTap={{ scale: 1.2 }}
-                              class="ri-delete-bin-line"
+                              className="ri-delete-bin-line"
                             ></motion.i>
-                               <motion.i
-                              onClick ={()=>handleEdit(product)}
-
-                              style={{float:"right", fontSize:20}}
+                            <motion.i
+                              onClick={() => handleEdit(product)}
+                              style={{ float: "right", fontSize: 20 }}
                               whileTap={{ scale: 1.2 }}
-                              class="ri-edit-line"
-                            > </motion.i>
+                              className="ri-edit-line"
+                            >
+                              {" "}
+                            </motion.i>
                           </td>
-                       
                         </tr>
                       ))}
                     </tbody>
@@ -105,28 +109,42 @@ export const AllProducts = () => {
                 )}
               </Col>
               <Col lg="2">
-              
-              <div>
-                <motion.button whileHover={{ scale: 1.1 }}  onClick={toggle} className="buy_btn w-100 p-3">Add Product</motion.button>
-              </div>
-            </Col>
+                <div>
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    onClick={toggle}
+                    className="buy_btn w-100 p-3"
+                  >
+                    Add Product
+                  </motion.button>
+                </div>
+              </Col>
             </Row>
           </Container>
         </section>
       </Helmet>
 
+     
       <ReactPaginate
+      activeClassName={'item active '}
+        breakClassName={'item break-me '}
         breakLabel="..."
+        containerClassName={'pagination'}
+        disabledClassName={'disabled-page'}
+        nextClassName={"item next "}
         nextLabel="next >"
         onPageChange={handlePageClick}
         pageRangeDisplayed={5}
         pageCount={pageCount}
+        previousClassName={"item previous"}
+        pageClassName={'item pagination-page '}
         previousLabel="< previous"
         renderOnZeroPageCount={null}
       />
-   <AddProducts toggle={toggle} modal={modal}/>
-  
-   <EditProducts toggle={toggleEdit} modal={modalEdit} product={product}/>
+    
+      <AddProducts toggle={toggle} modal={modal} />
+
+      <EditProducts toggle={toggleEdit} modal={modalEdit} product={product} />
     </div>
   );
 };

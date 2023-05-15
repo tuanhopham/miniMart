@@ -31,6 +31,10 @@ const productsSlice = createSlice({
       });
       state.productsList = newData
     },
+    deleteProduct: (state, action) => {
+      const newData = state.productsList.filter((item) => item.id !== action.payload.id);
+      state.productsList = newData
+     },
   },
 });
 
