@@ -1,7 +1,6 @@
 import { db } from "./../firebase.config";
 import { setDoc, doc, collection, getDocs } from "firebase/firestore";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
 
 const checkDuplicateDocumentId = async (collectionName, documentId) => {
   const querySnapshot = await getDocs(collection(db, collectionName));

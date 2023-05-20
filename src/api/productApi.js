@@ -13,7 +13,7 @@ export const useProductApi = () => {
     const productsList = productsSnapshot.docs.map((doc) => ({
       ...doc.data(),
     }));
-
+    console.log(productsList);
     dispatch(productsACtions.setProducts(productsList));
   }, [dispatch]);
   return getProducts;

@@ -31,7 +31,11 @@ export const Cart = () => {
       }
 
       if (!hasProductExceedQuantity) {
-        navigate("/checkout");
+        if (totalAmount === 0) {
+          toast.error("Please select products.");
+          navigate("/shop")
+        }
+        else{navigate("/checkout")}
       }
     }
   };

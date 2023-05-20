@@ -12,6 +12,7 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import { AddProducts } from "../admin/product/AddProducts";
 import { AllProducts } from "../admin/AllProducts";
 import { Dashboard } from './../admin/Dashboard';
+import { Order } from "../pages/order";
 
 export const AppRouter = () => {
   return (
@@ -22,6 +23,7 @@ export const AppRouter = () => {
 
       <Route path="/*" element={<ProtectedRoute />}>
         <Route path="checkout" element={<Checkout />}/>
+        <Route path="Order" element={<Order />}/>
         <Route path="dashboard/all-products" element={<AllProducts />}/>
         {/* <Route path="dashboard/add-product" element={<AddProducts/>}/> */}
         <Route path="dashboard" element={<Dashboard/>}/>

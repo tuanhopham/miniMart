@@ -56,18 +56,19 @@ export const ProductDetails = () => {
   };
 
   const addToCart = () => {
-    
-    dispatch(
+    product &&dispatch(
 
       cartACtions.addItem({
-        id,
-        image: products.imgUrl[0],
-        productName: products.productName,
-        price: products.price,
+        id:product.id,
+        imgUrl: product.imgUrl?.[0],
+        productName: product.productName,
+        price: product.price,
       })
     );
+    
     toast.success(`add ${products.productName} successfully`);
   };
+  
 
   useEffect(() => {
     window.scrollTo(0, 0);

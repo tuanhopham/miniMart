@@ -7,6 +7,7 @@ import { getAuth } from "firebase/auth";
 import { userACtions } from "./redux/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { getCartOfUserApi } from "./userApi/cart/cartApi";
+import { getUserIdBillApi,getDataUserBillsApi } from "./userApi/user/billApi";
 import { cartACtions } from "./redux/slices/cartSlice";
 function App() {
   const auth = getAuth();
@@ -30,12 +31,20 @@ function App() {
           })
         );
         const UserCart = await getCartOfUserApi(user.email);
+        const UserListBillId = await getUserIdBillApi(user.email);
         UserCart &&
           dispatch(
             cartACtions.setItem({
               cartItems: UserCart.cartItems,
               totalAmount: UserCart.totalAmount,
               totalQuantily: UserCart.totalQuantily,
+            })
+          );
+          UserListBillId && UserListBillId.length > 0 && (
+            await Promise.all([
+              getDataUserBillsApi(UserListBillId),
+            ]).then((ListBillsUser) => {
+              console.log(ListBillsUser);
             })
           );
       } else {
