@@ -6,9 +6,10 @@ import { useCategoryApi } from "./api/categoryApi";
 import { getAuth } from "firebase/auth";
 import { userACtions } from "./redux/slices/userSlice";
 import { useDispatch } from "react-redux";
-import { getCartOfUserApi } from "./userApi/cart/cartApi";
+import { getCartOfUserApi,getRoleOfUser } from "./userApi/cart/cartApi";
 import { getUserIdBillApi,getDataUserBillsApi } from "./userApi/user/billApi";
 import { cartACtions } from "./redux/slices/cartSlice";
+import { BillsACtions } from './redux/slices/billsSlice';
 function App() {
   const auth = getAuth();
   const fetchProducts = useProductApi();
@@ -22,12 +23,17 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
+     
       if (user) {
+
+        const roleUser = await getRoleOfUser(user.uid);
+        console.log(roleUser);
         dispatch(
           userACtions.addUser({
             displayName: user.displayName,
             email: user.email,
             photoURL: user.photoURL,
+            role:roleUser,
           })
         );
         const UserCart = await getCartOfUserApi(user.email);
@@ -44,7 +50,7 @@ function App() {
             await Promise.all([
               getDataUserBillsApi(UserListBillId),
             ]).then((ListBillsUser) => {
-              console.log(ListBillsUser);
+              dispatch(BillsACtions.setBills(ListBillsUser[0]));
             })
           );
       } else {

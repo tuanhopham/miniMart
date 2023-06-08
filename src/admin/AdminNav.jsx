@@ -1,12 +1,19 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
-import { useAuth } from "../custom-hooks/useAuth";
 import "../styles/admin-nav.css";
 import userIcon from "../assets/images/user-icon.png";
 
 import { NavLink } from "react-router-dom";
 import { useSelector } from 'react-redux';
 const admin__nav = [
+  {
+    display: "new-orders",
+    path: "/dashboard/order-bills",
+  },
+  {
+    display: "my-orders",
+    path: "/dashboard/my-order",
+  },
   {
     display: "Dashboard",
     path: "/dashboard",
@@ -23,11 +30,11 @@ const admin__nav = [
     display: "Users",
     path: "/dashboard/users",
   },
+ 
 ];
 
 export const AdminNav = () => {
   const photoURL = useSelector((state) => state.user.photoURL);
-  console.log(photoURL);
   return (
     <>
       <header className="admin__header">

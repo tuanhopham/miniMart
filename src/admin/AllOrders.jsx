@@ -1,24 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Row, Col } from "reactstrap";
 import "../styles/cart.css";
 import Helmet from "./../components/Helmet/Helmet";
+import { Button } from "reactstrap";
 import { CommonSection } from "./../components/UI/CommonSection";
 import { motion } from "framer-motion";
 import { cartACtions } from "./../redux/slices/cartSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useBillsApi } from "./../api/billsAdminApi";
 
-export const Order = () => {
-  const bills = useSelector((state) => state.bills.billsData);
+export const AllOrder = () => {
+  const bills = useSelector((state) => state.bills.allBills);
+  const fetchProducts = useBillsApi();
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   return (
     <Helmet title="Order">
-      <CommonSection title="My Order" />
       <section>
         <Container>
           <Row>
-            <Col lg="10">
+            <Col lg="12">
               {bills.length === 0 ? (
                 <h2 className="fs-4 text-center">loading</h2>
               ) : (
@@ -30,6 +35,7 @@ export const Order = () => {
                       <th>Price</th>
                       <th>Status</th>
                       <th>View</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -95,22 +101,14 @@ export const Order = () => {
                               className="ri-eye-fill"
                             ></motion.i>
                           </td>
+                        <td>
+                        <Button outline  color="success" >Accept</Button>
+                        </td>
                         </tr>
                       ))}
                   </tbody>
                 </table>
               )}
-            </Col>
-            <Col lg="2">
-              <div>
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  // onClick={toggle}
-                  className="buy_btn w-100 p-3"
-                >
-                  List Product
-                </motion.button>
-              </div>
             </Col>
           </Row>
         </Container>

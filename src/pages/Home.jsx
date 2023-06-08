@@ -23,7 +23,7 @@ export const Home = () => {
             <Col lg="6" md="6">
               <div className="hero__content">
                 <p className="hero__subtitle">Trending product in {year}</p>
-                <h2>Make your Interior More Minimalistics & Modern</h2>
+                <h2>Make your Interior MoreMini malistics & Modern</h2>
                 <p>
                   lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
                   ipsumlorem ipsum

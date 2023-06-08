@@ -13,12 +13,12 @@ export const Footer = () => {
             <div className="logo">
             
               <div>
-                <h1 className="text-white">Multimart</h1>
+                <h1 className="text-white">Furniture Mart</h1>
               </div>
             </div>
             <p className="footer__text mt-4">
-              lorem Full Stack React Furniture Ecommerce Website using ReactJs,
-              Redux Toolkit, Firebase v9 For Beginners
+              lorem Full Stack React Furniture Ecommerce Website using ReactJs
+              
             </p>
           </Col>
           <Col lg="3" md='3' className="mb-4">

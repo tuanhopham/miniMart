@@ -1,16 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  billsId: [],
+  allBills: [],
   billsData: [],
 };
-const userBillsSlice = createSlice({
-  name: "userBills",
+const BillsSlice = createSlice({
+  name: "Bills",
   initialState,
   reducers: {
-   
+    setBills: (state, action) => {
+      state.billsData = action.payload;
+    },
+    addBills:(state,action)=>{
+      state.billsData.push(action.payload);
+    },
+    setAllBills:(state,action)=>{
+      state.allBills = action.payload;
+    }
   },
 });
 
-export const userBillsACtions = userBillsSlice.actions;
+export const BillsACtions = BillsSlice.actions;
 
-export default userBillsSlice.reducer;
+export default BillsSlice.reducer;

@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import { addBillUserApi, saveOderData } from "./../userApi/cart/cartApi";
 import { cartACtions } from "./../redux/slices/cartSlice";
 import { useProductApi } from ".././api/productApi";
+import { BillsACtions } from "../redux/slices/billsSlice";
 
 export const Checkout = () => {
   const totalQty = useSelector((state) => state.cart.totalQuantily);
@@ -65,7 +66,8 @@ export const Checkout = () => {
 
       const check = addBillUserApi(data);
       if (check) {
-        navigate("/shop");
+        dispatch(BillsACtions.addBills(data));
+        navigate("/order");
         saveOderData([], 0, 0);
         await fetchProducts();
         dispatch(

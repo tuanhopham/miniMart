@@ -7,7 +7,6 @@ import { Container, Row } from "reactstrap";
 import logo from "../../assets/images/eco-logo.png";
 import userIcon from "../../assets/images/user-icon.png";
 import { useSelector,useDispatch } from "react-redux";
-import { useAuth } from "../../custom-hooks/useAuth";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase.config";
 import { toast } from "react-toastify";
@@ -77,7 +76,7 @@ export const Header = () => {
             <div className="logo">
               <img src={logo} alt="logo" />
               <div>
-                <h1>Mini mart</h1>
+                <h1>Furniture Mart</h1>
               </div>
             </div>
             <div className="navigation" ref={menuRef} onClick={menuToggle}>
@@ -122,12 +121,16 @@ export const Header = () => {
                   onClick={toggleProfileActions}
                 >
                   {email ? (
+                 
+                    <div className="d-flex align-items-center justify-content-center flex-column">
                     <span onClick={logout}>Logout</span>
+                    <Link to="/dashboard">Dashboard</Link>
+                    </div>
                   ) : (
                     <div className="d-flex align-items-center justify-content-center flex-column">
                       <Link to="/signup">Signup</Link>
                       <Link to="/login">Login</Link>
-                      <Link to="/dashboard">Dashboard</Link>
+                      
                     </div>
                   )}
                 </div>

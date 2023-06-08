@@ -90,3 +90,14 @@ export const addBillUserApi = async (bill) => {
   }
   return false;
 };
+export const getRoleOfUser = async (userId) => {
+  try {
+    const docRef = doc(db, "roles", 'sales');
+    const listRoles = await getDoc(docRef);
+    const roleOfUser = listRoles.data()?.auth.indexOf(userId)===-1?'user':'sale';
+    return roleOfUser;
+  } catch (error) {
+    toast.error(`Error get cart: ${error}`);
+    return "user";
+  }
+};

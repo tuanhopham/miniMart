@@ -126,7 +126,6 @@ export const EditProducts = (props) => {
   useEffect(() => {
     
   if(props.product){
-    console.log(categorys.find((item) => item.name === props.product.category))
   setFormData(props.product)
     setMaterialsList(
       categorys.find((item) => item.name === props.product.category)?.material

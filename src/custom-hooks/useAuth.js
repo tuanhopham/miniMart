@@ -9,16 +9,16 @@ export const useAuth = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // Kiểm tra xem user có phải là admin hay không
-        const salesRef = db.collection('sales');
-        salesRef.get().then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            if (doc.data().uid === user.uid) {
-              setCurrentUser({ ...user, role: 'admin' });
-              return;
-            }
-          });
-          setCurrentUser(user);
-        });
+        // const salesRef = db.collection('roles');
+        // salesRef.get().then((querySnapshot) => {
+        //   querySnapshot.forEach((doc) => {
+        //     if (doc.data().uid === user.uid) {
+        //       setCurrentUser({ ...user, role: 'admin' });
+        //       return;
+        //     }
+        //   });
+        //   setCurrentUser(user);
+        // });
       } else {
         setCurrentUser(null);
       }

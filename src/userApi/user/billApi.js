@@ -2,14 +2,19 @@ import { doc, getDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { db } from "./../../firebase.config";
 
-
-
 export const getDataUserBillsApi = async (billsID) => {
   try {
-   const userBills = await getDoc(doc(db, "bills"));
-    return userBills; 
+    const userBills = await Promise.all(
+      billsID.map(async (billID) => {
+        const docRef = doc(db, "bills", billID);
+        const billData = await getDoc(docRef);
+        return billData.data();
+      })
+    );
+
+    return userBills;
   } catch (error) {
-    return []; 
+    return [];
   }
 };
 
