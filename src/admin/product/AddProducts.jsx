@@ -167,9 +167,7 @@ export const AddProducts = (props) => {
       img.src = imageDataUrl;
     });
   };
-  useEffect(() => {
-    console.log(selectedFiles)
-  }, [selectedFiles])
+  
   
   return (
     <div>

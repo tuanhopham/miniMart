@@ -32,17 +32,15 @@ export const Header = () => {
   const email = useSelector((state) => state.user.email);
 
 
-  const stickyHeaderFunc = () => {
-    window.addEventListener("scroll", () => {
-      if (
-        document.body.scrollTop > 80 ||
-        document.documentElement.scrollTop > 80
-      ) {
-        headerRef.current.classList.add("sticky__header");
-      } else {
-        headerRef.current.classList.remove("sticky__header");
-      }
-    });
+  const handleScroll = () => {
+    if (
+      document.body.scrollTop > 80 ||
+      document.documentElement.scrollTop > 80
+    ) {
+      headerRef.current?.classList.add("sticky__header");
+    } else {
+      headerRef.current?.classList.remove("sticky__header");
+    }
   };
 
   const logout = () => {
@@ -58,9 +56,9 @@ export const Header = () => {
   };
 
   useEffect(() => {
-    stickyHeaderFunc();
-    return () => window.removeEventListener("scroll", stickyHeaderFunc);
-  });
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const menuToggle = () => {
     menuRef.current.classList.toggle("active__menu");
@@ -125,6 +123,7 @@ export const Header = () => {
                     <div className="d-flex align-items-center justify-content-center flex-column">
                     <span onClick={logout}>Logout</span>
                     <Link to="/dashboard">Dashboard</Link>
+                    <Link to="/order">My Oder</Link>
                     </div>
                   ) : (
                     <div className="d-flex align-items-center justify-content-center flex-column">

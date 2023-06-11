@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col } from "reactstrap";
 import "../styles/cart.css";
 import Helmet from "./../components/Helmet/Helmet";
@@ -8,11 +8,19 @@ import { cartACtions } from "./../redux/slices/cartSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ViewBill } from './../admin/bills/ViewBill';
 
 export const Order = () => {
   const bills = useSelector((state) => state.bills.billsData);
-
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+  const [billView, setBillView] = useState({});
+  const handleView = (e) => {
+    setBillView(e);
+    toggle();
+  };
   return (
+    <>
     <Helmet title="Order">
       <CommonSection title="My Order" />
       <section>
@@ -37,15 +45,15 @@ export const Order = () => {
                       .sort((a, b) => b.createAt - a.createAt)
 
                       .map((bills, index) => (
-                        <tr key={bills.billId} className="align-middle">
+                        <tr key={bills?.billId} className="align-middle">
                           <td>{index + 1}</td>
                           <td>
-                            <img src={bills.carts[0]?.image} alt="" />
+                            <img src={bills?.carts[0]?.image} alt="" />
                           </td>
 
-                          <td>${bills.totalAmount}</td>
+                          <td>${bills?.totalAmount}</td>
                           <td>
-                            {bills.status === 0 ? (
+                            {bills?.status === 0 ? (
                               <>
                                 <i
                                   className="ri-survey-line"
@@ -53,7 +61,7 @@ export const Order = () => {
                                 ></i>{" "}
                                 Processing
                               </>
-                            ) : bills.status === 1 ? (
+                            ) : bills?.status === 1 ? (
                               <>
                                 <i
                                   className="ri-dropbox-fill"
@@ -61,7 +69,7 @@ export const Order = () => {
                                 ></i>{" "}
                                 Packing
                               </>
-                            ) : bills.status === 2 ? (
+                            ) : bills?.status === 2 ? (
                               <>
                                 <i
                                   className="ri-caravan-line"
@@ -69,7 +77,7 @@ export const Order = () => {
                                 ></i>{" "}
                                 Shipping
                               </>
-                            ) : bills.status === 3 ? (
+                            ) : bills?.status === 3 ? (
                               <>
                                 <i
                                   className="ri-shield-check-line"
@@ -89,7 +97,7 @@ export const Order = () => {
                           </td>
                           <td>
                             <motion.i
-                              //   onClick={() => deleteProduct(product)}
+                              onClick={() => handleView(bills)}
                               style={{ fontSize: 20 }}
                               whileTap={{ scale: 1.2 }}
                               className="ri-eye-fill"
@@ -116,5 +124,7 @@ export const Order = () => {
         </Container>
       </section>
     </Helmet>
+      {billView && <ViewBill toggle={toggle} isOpen={modal} bills={billView} />}
+</>
   );
 };

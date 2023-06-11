@@ -38,9 +38,8 @@ export const ProductDetails = () => {
   const product = products.find((item) => item.id === id);
   const {productName,imgUrl,category,shortDesc,reviews,description,price} = product
   const relatedProducts = products.filter(
-    (item) => item.category === products.category && item !== product
+    (item) => item.category === product.category && item !== product
   );
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const reviewUserName = reviewUser.current.value;

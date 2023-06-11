@@ -1,24 +1,50 @@
-import React, { useEffect } from "react";
-import { Container, Row, Col } from "reactstrap";
-import "../styles/cart.css";
-import Helmet from "./../components/Helmet/Helmet";
-import { Button } from "reactstrap";
-import { CommonSection } from "./../components/UI/CommonSection";
 import { motion } from "framer-motion";
-import { cartACtions } from "./../redux/slices/cartSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import React, { useEffect,useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Button, Col, Container, Row } from "reactstrap";
+import "../styles/cart.css";
 import { useBillsApi } from "./../api/billsAdminApi";
+import { acceptBillApi, deleteBillApi } from "./../api/managerBillApi";
+import Helmet from "./../components/Helmet/Helmet";
+import { ViewBill } from './bills/ViewBill';
 
 export const AllOrder = () => {
+  const dispatch = useDispatch();
   const bills = useSelector((state) => state.bills.allBills);
+  const userName = useSelector((state) => state.user.email);
   const fetchProducts = useBillsApi();
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+  const [billView, setBillView] = useState({});
+  const handleView = (e) => {
+    setBillView(e);
+    toggle();
+  };
   useEffect(() => {
     fetchProducts();
-  }, [fetchProducts]);
+  }, [fetchProducts, bills]);
+
+  const handleSubmitBill = async (bill) => {
+    const newBill = {
+      ...bill,
+      sale: userName,
+      status: 1,
+      timeline: [...bill.timeline, { time: Date.now(), name: "shipping" }],
+    };
+    await acceptBillApi(newBill);
+  };
+  const handleDeleteBill = async (bill) => {
+    const newBill = {
+      ...bill,
+      sale: userName,
+      status: -1,
+      timeline: [...bill.timeline, { time: Date.now(), name: "Delete" }],
+    };
+    await deleteBillApi(newBill);
+  };
 
   return (
+    <>
     <Helmet title="Order">
       <section>
         <Container>
@@ -33,15 +59,18 @@ export const AllOrder = () => {
                       <th>STT</th>
                       <th>Image</th>
                       <th>Price</th>
-                      <th>Status</th>
+                      <th>user Name</th>
+                      <th>total Qly</th>
+
+                      <th>Accept</th>
+                      <th>Delete</th>
                       <th>View</th>
-                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     {[...bills]
                       .sort((a, b) => b.createAt - a.createAt)
-
+                      .filter((bills) => bills.status === 0)
                       .map((bills, index) => (
                         <tr key={bills.billId} className="align-middle">
                           <td>{index + 1}</td>
@@ -50,60 +79,36 @@ export const AllOrder = () => {
                           </td>
 
                           <td>${bills.totalAmount}</td>
+                          <td>{bills.email}</td>
+                          <td>{bills.totalQty}</td>
+
                           <td>
-                            {bills.status === 0 ? (
-                              <>
-                                <i
-                                  className="ri-survey-line"
-                                  style={{ color: "blue" }}
-                                ></i>{" "}
-                                Processing
-                              </>
-                            ) : bills.status === 1 ? (
-                              <>
-                                <i
-                                  className="ri-dropbox-fill"
-                                  style={{ color: "green" }}
-                                ></i>{" "}
-                                Packing
-                              </>
-                            ) : bills.status === 2 ? (
-                              <>
-                                <i
-                                  className="ri-caravan-line"
-                                  style={{ color: "orange" }}
-                                ></i>{" "}
-                                Shipping
-                              </>
-                            ) : bills.status === 3 ? (
-                              <>
-                                <i
-                                  className="ri-shield-check-line"
-                                  style={{ color: "purple" }}
-                                ></i>{" "}
-                                Received
-                              </>
-                            ) : (
-                              <>
-                                <i
-                                  className="ri-close-circle-fill"
-                                  style={{ color: "red" }}
-                                ></i>{" "}
-                                Cancelled
-                              </>
-                            )}
+                            <Button
+                              outline
+                              onClick={() => handleSubmitBill(bills)}
+                              color="success"
+                            >
+                              Accept
+                            </Button>
+                          </td>
+                          <td>
+                            <Button
+                              outline
+                              onClick={() => handleDeleteBill(bills)}
+                              color="danger"
+                            >
+                              Delete
+                            </Button>
                           </td>
                           <td>
                             <motion.i
-                              //   onClick={() => deleteProduct(product)}
                               style={{ fontSize: 20 }}
                               whileTap={{ scale: 1.2 }}
                               className="ri-eye-fill"
+                              onClick={() => handleView(bills)}
+
                             ></motion.i>
                           </td>
-                        <td>
-                        <Button outline  color="success" >Accept</Button>
-                        </td>
                         </tr>
                       ))}
                   </tbody>
@@ -114,5 +119,7 @@ export const AllOrder = () => {
         </Container>
       </section>
     </Helmet>
+      {billView && <ViewBill toggle={toggle} isOpen={modal} bills={billView} />}
+</>
   );
 };

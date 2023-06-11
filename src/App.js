@@ -27,7 +27,6 @@ function App() {
       if (user) {
 
         const roleUser = await getRoleOfUser(user.uid);
-        console.log(roleUser);
         dispatch(
           userACtions.addUser({
             displayName: user.displayName,
