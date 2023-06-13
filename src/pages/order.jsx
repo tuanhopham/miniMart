@@ -1,14 +1,11 @@
+import { motion } from "framer-motion";
 import React, { useState } from "react";
-import { Container, Row, Col } from "reactstrap";
+import { useSelector } from "react-redux";
+import { Col, Container, Row } from "reactstrap";
 import "../styles/cart.css";
+import { ViewBill } from './../admin/bills/ViewBill';
 import Helmet from "./../components/Helmet/Helmet";
 import { CommonSection } from "./../components/UI/CommonSection";
-import { motion } from "framer-motion";
-import { cartACtions } from "./../redux/slices/cartSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { ViewBill } from './../admin/bills/ViewBill';
 
 export const Order = () => {
   const bills = useSelector((state) => state.bills.billsData);
@@ -85,7 +82,15 @@ export const Order = () => {
                                 ></i>{" "}
                                 Received
                               </>
-                            ) : (
+                            ) : bills?.status === 5 ? (
+                              <>
+                                <i
+                                  className="ri-shield-check-line"
+                                  style={{ color: "red" }}
+                                ></i>{" "}
+                                done
+                              </>
+                            ): (
                               <>
                                 <i
                                   className="ri-close-circle-fill"

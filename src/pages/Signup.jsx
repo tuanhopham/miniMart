@@ -1,14 +1,13 @@
-import React, { useState } from "react";
-import Helmet from "../components/Helmet/Helmet";
-import { Container, Row, Col, Form, FormGroup } from "reactstrap";
-import { Link, useNavigate } from "react-router-dom";
-import "../styles/login.css";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { auth, db } from "../firebase.config";
-import { storage } from "../firebase.config";
-import { toast } from "react-toastify";
 import { doc, setDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { Col, Container, Form, FormGroup, Row } from "reactstrap";
+import Helmet from "../components/Helmet/Helmet";
+import { auth, db, storage } from "../firebase.config";
+import "../styles/login.css";
 
 export const Signup = () => {
   const [userName, setUserName] = useState("");

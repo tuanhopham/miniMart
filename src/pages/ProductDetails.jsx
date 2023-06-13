@@ -1,19 +1,18 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Col, Container, Row } from "reactstrap";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Col, Container, Row } from "reactstrap";
 
+import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import Slider from "react-slick";
+import { toast } from "react-toastify";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 import Helmet from "../components/Helmet/Helmet";
 import { CommonSection } from "../components/UI/CommonSection";
 import "../styles/product-details.css";
-import { motion } from "framer-motion";
 import { ProductsList } from "./../components/UI/ProductsList";
-import { useDispatch } from "react-redux";
 import { cartACtions } from "./../redux/slices/cartSlice";
-import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 //setting react slider
 var settings = {

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Col, Container, Row } from "reactstrap";
-import { CommonSection } from "../components/UI/CommonSection";
-import Helmet from "./../components/Helmet/Helmet";
-import "../styles/shop.css";
-import { useDebounce } from "use-debounce";
-import { ProductsList } from "./../components/UI/ProductsList";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Col, Container, Row } from "reactstrap";
+import { useDebounce } from "use-debounce";
+import { CommonSection } from "../components/UI/CommonSection";
+import "../styles/shop.css";
+import Helmet from "./../components/Helmet/Helmet";
+import { ProductsList } from "./../components/UI/ProductsList";
 export const Shop = () => {
   const products = useSelector((state) => state.products.productsList);
   const categorys = useSelector((state) => state.products.categorys);

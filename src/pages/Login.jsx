@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import Helmet from "../components/Helmet/Helmet";
-import { Container, Row, Col, Form, FormGroup } from "reactstrap";
-import { Link, useNavigate } from "react-router-dom";
-import "../styles/login.css";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase.config";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { Col, Container, Form, FormGroup, Row } from "reactstrap";
+import Helmet from "../components/Helmet/Helmet";
+import { auth } from "../firebase.config";
+import "../styles/login.css";
 
 
 export const Login = () => {
@@ -25,8 +24,6 @@ export const Login = () => {
         email,
         password
       );
-    
-    
       setLoading(false);
       toast.success("Loign success");
       navigate("/checkout");

@@ -1,10 +1,10 @@
 import React from "react";
-import { Container, Row, Col } from "reactstrap";
-import "../styles/admin-nav.css";
+import { Container, Row } from "reactstrap";
 import userIcon from "../assets/images/user-icon.png";
+import "../styles/admin-nav.css";
 
-import { NavLink } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import { NavLink } from "react-router-dom";
 const admin__nav = [
   {
     display: "new-orders",

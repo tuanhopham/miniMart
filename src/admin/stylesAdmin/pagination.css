@@ -57,3 +57,10 @@
     position: absolute;
     width: 150px;
   }
+  .bg-image {
+    position: relative;
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.5) contrast(1.2);
+  }

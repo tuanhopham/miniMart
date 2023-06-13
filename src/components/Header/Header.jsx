@@ -1,15 +1,15 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./header.css";
 
+import { signOut } from "firebase/auth";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { Container, Row } from "reactstrap";
 import logo from "../../assets/images/eco-logo.png";
 import userIcon from "../../assets/images/user-icon.png";
-import { useSelector,useDispatch } from "react-redux";
-import { signOut } from "firebase/auth";
 import { auth } from "../../firebase.config";
-import { toast } from "react-toastify";
 import { userACtions } from './../../redux/slices/userSlice';
 
 const nav__link = [

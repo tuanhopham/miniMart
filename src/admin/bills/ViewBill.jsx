@@ -5,15 +5,16 @@ import {
   ModalBody,
   ModalFooter,
   Table,
+  Label,
   Button,
 } from "reactstrap";
-
+import moment from "moment";
 export const ViewBill = ({ bills, isOpen, toggle }) => {
   return (
     <Modal isOpen={isOpen} toggle={toggle}>
       <ModalHeader toggle={toggle}>bills Detail</ModalHeader>
       <ModalBody>
-        <Table>
+        <Table striped>
           <thead>
             <tr>
               <th>#</th>
@@ -24,7 +25,9 @@ export const ViewBill = ({ bills, isOpen, toggle }) => {
             </tr>
           </thead>
           <tbody>
-              {bills.carts.map((item, index) => (
+            {bills &&
+              bills.carts &&
+              bills.carts.map((item, index) => (
                 <tr key={index}>
                   <th scope="row">{index + 1}</th>
                   <td>{item.productName}</td>
@@ -33,8 +36,34 @@ export const ViewBill = ({ bills, isOpen, toggle }) => {
                   <td>{item.totalPrice}</td>
                 </tr>
               ))}
-            </tbody>
+          </tbody>
         </Table>
+        <br />
+    
+        {bills &&bills.timeline && bills.timeline.length > 0 && (
+          <>
+          <Label xxl>timeline</Label>
+          <Table striped>
+         
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bills.timeline.map((item, index) => (
+                <tr key={index}>
+                  <th scope="row">{index + 1}</th>
+                  <td>{item.name}</td>
+                  <td>{moment(item.time).format("DD/MM/YYYY")}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          </>
+        )}
         <div>
           <p>Customer Information:</p>
           <p>Name: {bills.displayName}</p>

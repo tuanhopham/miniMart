@@ -1,20 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Container, Row, Col, Form, FormGroup } from "reactstrap";
-import Helmet from "./../components/Helmet/Helmet";
-import { CommonSection } from "./../components/UI/CommonSection";
-import "../styles/checkout.css";
-import { useSelector } from "react-redux";
-import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { addBillUserApi, saveOderData } from "./../userApi/cart/cartApi";
-import { cartACtions } from "./../redux/slices/cartSlice";
+import { Col, Container, Form, FormGroup, Row } from "reactstrap";
+import { v4 as uuidv4 } from "uuid";
 import { useProductApi } from ".././api/productApi";
 import { BillsACtions } from "../redux/slices/billsSlice";
+import "../styles/checkout.css";
+import Helmet from "./../components/Helmet/Helmet";
+import { CommonSection } from "./../components/UI/CommonSection";
+import { cartACtions } from "./../redux/slices/cartSlice";
+import { addBillUserApi, saveOderData } from "./../userApi/cart/cartApi";
 
 export const Checkout = () => {
   const totalQty = useSelector((state) => state.cart.totalQuantily);

@@ -1,25 +1,22 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from 'react-toastify';
 import {
   Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Form,
   FormGroup,
-  Label,
-  Input,
   FormText,
-  Alert,
+  Input,
+  Label,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader
 } from "reactstrap";
-import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { addProductApi } from "../../api/addProductApi";
-import { toast } from 'react-toastify';
 import { uploadFiles } from '../../api/uploadImagesApi';
-import { useDispatch } from 'react-redux';
 import { productsACtions } from '../../redux/slices/productsSlice';
-import { useEffect } from "react";
 
 export const AddProducts = (props) => {
   const [selectedFiles, setSelectedFiles] = useState([]);

@@ -1,4 +1,4 @@
-import { doc, setDoc, deleteDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc,arrayUnion } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { db } from "./../firebase.config";
 
@@ -20,5 +20,19 @@ export const deleteBillApi = async (bill) => {
   } catch (error) {
     toast.error(`Delete Accept Bill product: ${error}`);
     return false;
+  }
+};
+
+export const updateSaleEntryApi = async (bills) => {
+  try {
+    await updateDoc(doc(db, "statistical", "saleEntry"), {
+      [bills.sale] : arrayUnion({totalAmount:bills.totalAmount,totalQty:bills.totalQty,date:Date.now(),billId:bills.billId,sale:bills.sale}),
+      entry : arrayUnion({totalAmount:bills.totalAmount,totalQty:bills.totalQty,date:Date.now(),sale:bills.sale})
+  });
+
+    return true; 
+  } catch (error) {
+
+    return false; 
   }
 };

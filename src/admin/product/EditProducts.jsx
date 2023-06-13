@@ -1,23 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from 'react-toastify';
 import {
   Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Form,
   FormGroup,
-  Label,
   Input,
-
+  Label,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
 } from "reactstrap";
-import { useSelector } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 import { editProductApi } from "../../api/editProductApi";
-import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
 import { productsACtions } from '../../redux/slices/productsSlice';
-import { useEffect } from "react";
 
 export const EditProducts = (props) => {
   const categorys = useSelector((state) => state.products.categorys);
@@ -50,7 +46,7 @@ export const EditProducts = (props) => {
     }
     
     if (emptyFields.length > 0) {
-      const message = `Vui lòng điền đầy đủ thông tin cho các trường: ${emptyFields.join(", ")}.`;
+      const message = `Please Enter other field: ${emptyFields.join(", ")}.`;
       toast.error(message);
 
     } else {
@@ -256,7 +252,7 @@ export const EditProducts = (props) => {
                 id="quality"
                 placeholder="set Quality"
                 value={formData.quality}
-                onChange={handleChangeNum}
+                readOnly
               />
             </FormGroup>
 
@@ -308,7 +304,7 @@ export const EditProducts = (props) => {
           </ModalBody>
           <ModalFooter>
             <Button color="primary" type="submit" onClick={handleSubmit}>
-              Do Something
+              Accept
             </Button>
             <Button color="secondary" onClick={props.toggle}>
               Cancel

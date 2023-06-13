@@ -1,9 +1,8 @@
 import React from "react";
 import "./footer.css";
-import logo from "../../assets/images/eco-logo.png";
 
-import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
+import { Col, Container, ListGroup, ListGroupItem, Row } from "reactstrap";
 export const Footer = () => {
   return (
     <footer className="footer">
