@@ -24,7 +24,7 @@ export const Cart = () => {
 
         if (cartItem.quantity > productItem.quality) {
           toast.error(
-            `Sản phẩm "${productItem.productName}" có số lượng vượt quá hàng tồn kho.`
+            `product "${productItem.productName}" over quantity than store.`
           );
           hasProductExceedQuantity = true;
         }

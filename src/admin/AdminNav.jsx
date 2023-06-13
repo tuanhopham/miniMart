@@ -22,14 +22,7 @@ const admin__nav = [
     display: "All-Products",
     path: "/dashboard/all-products",
   },
-  {
-    display: "Orders",
-    path: "/dashboard/orders",
-  },
-  {
-    display: "Users",
-    path: "/dashboard/users",
-  },
+  
  
 ];
 
