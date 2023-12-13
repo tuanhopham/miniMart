@@ -2,14 +2,14 @@
 
 
 .auth__form{
-    background: var(--primary-color);
+    /* background: var(--primary-color); */
     padding: 40px;
     border-radius: 5px;
 
 }
 .auth__btn{
-    background: #fff !important;
-    color: var(--primary-color);
+    background: var(--primary-color) !important;
+    color:  #fff;
     font-weight: 600;
 }
 .auth__form p {
@@ -17,7 +17,7 @@
 
 }
 .auth__form p a{
-    color: rgba(255, 255, 255, 0.735);
+    color:var(--primary-color);
 }
 .auth__form input[type= 'file'] {
     color: #fff;
