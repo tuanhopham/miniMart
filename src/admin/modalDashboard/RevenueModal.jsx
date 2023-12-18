@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 export const RevenueModal = ({ profit, isOpen, toggle }) => {
   return (
-    <Modal isOpen={isOpen} toggle={toggle} centered='true'  size='lg' >
+    <Modal isOpen={isOpen} toggle={toggle} centered size='lg' >
       <ModalHeader toggle={toggle}>profit Detail</ModalHeader>
       <ModalBody>
       <Table centered hover>

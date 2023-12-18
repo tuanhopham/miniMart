@@ -22,7 +22,7 @@ var settings = {
   slidesToShow: 1,
   slidesToScroll: 1,
 };
-export const ProductDetails = () => {
+export const ProductQr = () => {
   const products = useSelector((state) => state.products.productsList);
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -44,15 +44,6 @@ if (product) {
   );
   const handleSubmit = (e) => {
     e.preventDefault();
-    const reviewUserName = reviewUser.current.value;
-    const reviewUserMsg = reviewMsg.current.value;
-
-    const reviewObj = {
-      userName: reviewUserName,
-      text: reviewUserMsg,
-      rating,
-    };
-
     toast.success("Review submitted");
   };
 
@@ -235,10 +226,7 @@ if (product) {
                   </div>
                 )}
               </Col>
-              <Col lg="12" className="mt-5">
-                <h2 className="related__title">You might also like</h2>
-              </Col>
-              <ProductsList data={relatedProducts} />
+           
             </Row>
           </Container>
         </section>

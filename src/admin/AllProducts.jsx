@@ -2,7 +2,18 @@ import { motion } from "framer-motion";
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, ButtonGroup, Col, Container, Row, Table } from "reactstrap";
+import {
+  Button,
+  ButtonGroup,
+  Col,
+  Container,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Row,
+  Table,
+} from "reactstrap";
 import { deleteProductApi } from "../api/deleteProductApi";
 import Helmet from "./../components/Helmet/Helmet";
 import { productsACtions } from "./../redux/slices/productsSlice";
@@ -10,9 +21,12 @@ import { AddProducts } from "./product/AddProducts";
 import { AddQuantity } from "./product/AddQuantity";
 import { EditProducts } from "./product/EditProducts";
 import "./stylesAdmin/pagination.css";
+import QRCode from "qrcode.react";
+import { QRProduct } from "./product/QRProduct";
 export const AllProducts = () => {
   const [modal, setModal] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
+  const [modalQr, setModalQr] = useState(false);
   const [modalQuantity, setModalQuantity] = useState(false);
   const [product, setproduct] = useState({});
   const handleEdit = (e) => {
@@ -23,8 +37,13 @@ export const AllProducts = () => {
     setproduct(e);
     toggleQuantily();
   };
+  const handleQr = (e) => {
+    setproduct(e);
+    toggleQrCode();
+  };
   const toggle = () => setModal(!modal);
   const toggleEdit = () => setModalEdit(!modalEdit);
+  const toggleQrCode = () => setModalQr(!modalQr);
   const toggleQuantily = () => setModalQuantity(!modalQuantity);
 
   // Số sản phẩm hiển thị trên mỗi trang
@@ -52,6 +71,15 @@ export const AllProducts = () => {
 
     // Cập nhật vị trí sản phẩm bắt đầu hiển thị trên trang mới
     setProductOffset(newOffset);
+   
+  };
+  const [dropdownOpen, setDropdownOpen] = useState(
+    Array(products.length).fill(false)
+  );
+  const toggleProductDropdown = (index) => {
+    const newDropdownOpen = [...dropdownOpen];
+    newDropdownOpen[index] = !newDropdownOpen[index];
+    setDropdownOpen(newDropdownOpen);
   };
   const dispatch = useDispatch();
   const deleteProduct = async (product) => {
@@ -93,46 +121,66 @@ export const AllProducts = () => {
                           <td>{product.productName}</td>
                           <td>${product.price}</td>
                           <td>{product.quality}</td>
-                          <td> 
-                            <ButtonGroup className="d-flex justify-content-around pr-3">
-                              <Button
-                                color="danger"
-                                onClick={() => deleteProduct(product)}
-                                className="mr-3"
-                              >
-                                <motion.i
-                                  style={{ fontSize: 20 }}
-                                  whileTap={{ scale: 1.2 }}
-                                  className="ri-delete-bin-line"
-                                ></motion.i>
-                              </Button>
-                              <Button
-                                color="success"
-                                onClick={() => handleEdit(product)}
-                                className="mr-3"
-                              >
-                                <motion.i
-                                  style={{ float: "right", fontSize: 20 }}
-                                  whileTap={{ scale: 1.2 }}
-                                  className="ri-edit-line"
+                          <td>
+                            <Dropdown
+                              isOpen={dropdownOpen[index]}
+                              toggle={() => toggleProductDropdown(index)}
+                              direction={"end"}
+                              style={{ textAlign: "center" }}
+                            >
+                              <DropdownToggle color="" >
+                                <i className="ri-menu-fill"></i>
+                              </DropdownToggle>
+                              <DropdownMenu>
+                                <DropdownItem
+                                  onClick={() => deleteProduct(product)}
                                 >
-                                  {" "}
-                                </motion.i>
-                              </Button>
-                              <Button
-                                color="primary"
-                                onClick={() => handleQuantity(product)}
-                                className="mr-3"
-                              >
-                                <motion.i
-                                  style={{ float: "right", fontSize: 20 }}
-                                  whileTap={{ scale: 1.2 }}
-                                  className="ri-add-circle-line"
+                                  
+                                    Delete Product  
+                                    <motion.i
+                                      style={{ fontSize: 18 ,marginLeft:10}}
+                                      whileTap={{ scale: 1.2 }}
+                                      className="ri-delete-bin-line"
+                                    ></motion.i>
+                                </DropdownItem>
+                                <DropdownItem
+                                  onClick={() => handleEdit(product)}
                                 >
-                                  {" "}
-                                </motion.i>
-                              </Button>
-                            </ButtonGroup>
+                                 
+                                    Edit Product
+                                    <motion.i
+                                      style={{ float: "right", fontSize: 20 }}
+                                      whileTap={{ scale: 1.2 }}
+                                      className="ri-edit-line"
+                                    >
+                                    </motion.i>
+                                </DropdownItem>
+                                <DropdownItem
+                                  onClick={() => handleQuantity(product)}
+                                >
+                                
+                                    Add Quantity
+                                    <motion.i
+                                      style={{ float: "right", fontSize: 20 }}
+                                      whileTap={{ scale: 1.2 }}
+                                      className="ri-add-circle-line"
+                                    >
+                                    </motion.i>
+                                </DropdownItem>
+                                <DropdownItem
+                                  onClick={() => handleQr(product)}
+                                >
+                                
+                                   QR product
+                                    <motion.i
+                                      style={{ float: "right", fontSize: 20 }}
+                                      whileTap={{ scale: 1.2 }}
+                                      className="ri-qr-code-line"
+                                    >
+                                    </motion.i>
+                                </DropdownItem>
+                              </DropdownMenu>
+                            </Dropdown>
                           </td>
                         </tr>
                       ))}
@@ -176,7 +224,12 @@ export const AllProducts = () => {
       <AddProducts toggle={toggle} modal={modal} />
 
       <EditProducts toggle={toggleEdit} modal={modalEdit} product={product} />
-      <AddQuantity toggle={toggleQuantily} modal={modalQuantity} product={product} />
+      <QRProduct toggle={toggleQrCode} modal={modalQr} product={product} />
+      <AddQuantity
+        toggle={toggleQuantily}
+        modal={modalQuantity}
+        product={product}
+      />
     </div>
   );
 };

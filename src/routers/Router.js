@@ -16,6 +16,7 @@ import { Order } from "../pages/order";
 import { AllOrder } from "./../admin/AllOrders";
 import { ProtectedAdmin } from './ProtectedAmin';
 import { MyOrderAdmin } from './../admin/MyOrdersAdmin';
+import { ProductQr } from "../pages/ProductQr";
 
 export const AppRouter = () => {
   return (
@@ -37,6 +38,7 @@ export const AppRouter = () => {
       </Route>
       <Route path="/Login" element={<Login />} />
       <Route path="/shop/:id" element={<ProductDetails />} />
+      <Route path="/qr/:id" element={<ProductQr />} />
       <Route path="/Shop" element={<Shop />} />
       <Route path="/Signup" element={<Signup />} />
     </Routes>

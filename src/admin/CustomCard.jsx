@@ -38,7 +38,7 @@ const AppWidgetSummary = ({
 
 AppWidgetSummary.propTypes = {
   color: PropTypes.string,
-  icon: PropTypes.object,
+  icon: PropTypes.string,
   title: PropTypes.string.isRequired,
   total: PropTypes.number.isRequired,
 };
