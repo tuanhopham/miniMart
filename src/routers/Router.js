@@ -1,22 +1,20 @@
 import React from "react";
-import { Home } from "../pages/Home";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Cart } from "../pages/Cart";
 import { Checkout } from "../pages/Checkout";
+import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 import { ProductDetails } from "../pages/ProductDetails";
 import { Shop } from "../pages/Shop";
 import { Signup } from "../pages/Signup";
-import { Routes, Route, Navigate } from "react-router-dom";
 import { ProtectedRoute } from "./ProtectedRoute";
-
-import { AddProducts } from "../admin/product/AddProducts";
 import { AllProducts } from "../admin/AllProducts";
-import { Dashboard } from "./../admin/Dashboard";
+import { ProductQr } from "../pages/ProductQr";
 import { Order } from "../pages/order";
 import { AllOrder } from "./../admin/AllOrders";
-import { ProtectedAdmin } from './ProtectedAmin';
+import { Dashboard } from "./../admin/Dashboard";
 import { MyOrderAdmin } from './../admin/MyOrdersAdmin';
-import { ProductQr } from "../pages/ProductQr";
+import { ProtectedAdmin } from './ProtectedAmin';
 
 export const AppRouter = () => {
   return (

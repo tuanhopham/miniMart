@@ -42,8 +42,8 @@ export const AllProducts = () => {
     toggleQrCode();
   };
   const toggle = () => setModal(!modal);
-  const toggleEdit = () => setModalEdit(!modalEdit);
   const toggleQrCode = () => setModalQr(!modalQr);
+  const toggleEdit = () => setModalEdit(!modalEdit);
   const toggleQuantily = () => setModalQuantity(!modalQuantity);
 
   // Số sản phẩm hiển thị trên mỗi trang

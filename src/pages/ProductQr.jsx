@@ -1,6 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Col, Container, Row } from "reactstrap";
+import {
+  Button,
+  Col,
+  Container,
+  FormGroup,
+  Input,
+  Label,
+  Row,
+} from "reactstrap";
 
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,8 +19,11 @@ import "slick-carousel/slick/slick.css";
 import Helmet from "../components/Helmet/Helmet";
 import { CommonSection } from "../components/UI/CommonSection";
 import "../styles/product-details.css";
-import { ProductsList } from "./../components/UI/ProductsList";
 import { cartACtions } from "./../redux/slices/cartSlice";
+import { useProductApi } from "../api/productApi";
+import { updateOrderEntryApi, updateQuantityApi } from "../api/editProductApi";
+import { AddQuantity } from "../admin/product/AddQuantity";
+import { EditProducts } from "../admin/product/EditProducts";
 
 //setting react slider
 var settings = {
@@ -26,46 +37,92 @@ export const ProductQr = () => {
   const products = useSelector((state) => state.products.productsList);
   const { id } = useParams();
   const dispatch = useDispatch();
-  
+  const [modalQuantity, setModalQuantity] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
+  const toggleEdit = () => setModalEdit(!modalEdit);
+  const toggleQuantily = () => setModalQuantity(!modalQuantity);
   const [tab, setTab] = useState("desc");
   const [rating, setRating] = useState(null);
-  
+  const role = useSelector((state) => state.user.role);
   // review of user
   const reviewUser = useRef("");
   const reviewMsg = useRef("");
   const product = products.find((item) => item.id === id);
-  let productName, imgUrl, category, shortDesc, reviews, description, price;
+  let productName,
+    imgUrl,
+    category,
+    shortDesc,
+    reviews,
+    description,
+    price,
+    quality;
 
-if (product) {
-  ({ productName, imgUrl, category, shortDesc, reviews, description, price } = product);
-}
-  const relatedProducts = products.filter(
-    (item) => item.category === product.category && item !== product
-  );
-  const handleSubmit = (e) => {
+  const fetchProducts = useProductApi();
+  const [quantity, setQuantity] = useState(0);
+  const [Price, setPrice] = useState(0);
+  const [priceOfProduct, setPriceOfProduct] = useState(0);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (priceOfProduct < price) {
+      const isUpdateQuantity = updateQuantityApi({
+        ...product,
+        quality: Number(quality) + quantity,
+      });
+      if (isUpdateQuantity) {
+        updateOrderEntryApi({
+          Price,
+          quantity,
+          priceOfProduct,
+          time: Date.now(),
+          productName: productName,
+        });
+        fetchProducts();
+      }
+    } else {
+      toast.error(`The import price cannot be higher than the selling price`);
+    }
+  };
+  useEffect(() => {
+    const priceOfProduct = Price / quantity;
+    setPriceOfProduct(Number(priceOfProduct.toFixed(2)));
+  }, [quantity, Price]);
+  if (product) {
+    ({
+      productName,
+      imgUrl,
+      category,
+      shortDesc,
+      reviews,
+      description,
+      price,
+      quality,
+    } = product);
+  }
+
+  const handleSubmitReview = (e) => {
     e.preventDefault();
     toast.success("Review submitted");
   };
 
   const addToCart = () => {
-    product &&dispatch(
+    product &&
+      dispatch(
+        cartACtions.addItem({
+          id: product.id,
+          imgUrl: product.imgUrl?.[0],
+          productName: product.productName,
+          price: product.price,
+        })
+      );
 
-      cartACtions.addItem({
-        id:product.id,
-        imgUrl: product.imgUrl?.[0],
-        productName: product.productName,
-        price: product.price,
-      })
-    );
-    
     toast.success(`add ${products.productName} successfully`);
   };
-  
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [product]);
-
+  console.log(role);
   return (
     product && (
       <Helmet title={productName}>
@@ -116,13 +173,36 @@ if (product) {
                   <span>Category: {category.toUpperCase()} </span>
                 </div>
                 <p className="mt-3">{shortDesc}</p>
-                <motion.button
-                  whileTap={{ scale: 1.2 }}
-                  className="buy_btn"
-                  onClick={addToCart}
-                >
-                  Add to cart
-                </motion.button>
+
+                {role === "sale" ? (
+                  <>
+                    <motion.button
+                      whileTap={{ scale: 1.2 }}
+                      className="buy_btn"
+                      style={{ marginRight: 20 }}
+                      onClick={() => setModalEdit(!modalEdit)}
+                    >
+                      Edit Product
+                    </motion.button>
+
+                    <motion.button
+                      whileTap={{ scale: 1.2 }}
+                      className="buy_btn"
+                      style={{ backgroundColor: "ThreeDHighlight" }}
+                      onClick={() => setModalQuantity(!modalQuantity)}
+                    >
+                      Add quantity
+                    </motion.button>
+                  </>
+                ) : (
+                  <motion.button
+                    whileTap={{ scale: 1.2 }}
+                    className="buy_btn"
+                    onClick={addToCart}
+                  >
+                    Add to cart
+                  </motion.button>
+                )}
               </Col>
             </Row>
           </Container>
@@ -163,7 +243,7 @@ if (product) {
                       </ul>
                       <div className="review__form">
                         <h4>Leave your experience</h4>
-                        <form action="" onSubmit={handleSubmit}>
+                        <form action="" onSubmit={handleSubmitReview}>
                           <div className="form__group">
                             <input
                               type="text"
@@ -226,10 +306,16 @@ if (product) {
                   </div>
                 )}
               </Col>
-           
             </Row>
           </Container>
         </section>
+
+        <EditProducts toggle={toggleEdit} modal={modalEdit} product={product} />
+        <AddQuantity
+          toggle={toggleQuantily}
+          modal={modalQuantity}
+          product={product}
+        />
       </Helmet>
     )
   );

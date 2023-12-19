@@ -21,7 +21,6 @@ export const AddQuantity = (props) => {
   const [Price, setPrice] = useState(0);
   const [priceOfProduct, setPriceOfProduct] = useState(0);
 
-  const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
    if(priceOfProduct<props.product.price){
