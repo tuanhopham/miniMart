@@ -23,7 +23,16 @@ export const Signup = () => {
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
+
+    // Validate file type
+    if (selectedFile && !selectedFile.type.startsWith("image/")) {
+      toast.error("Please select a valid image file.");
+      return;
+    }
+
     setFile(selectedFile);
+
+    // Generate preview if valid
     if (selectedFile) {
       const reader = new FileReader();
       reader.onload = () => setPreview(reader.result);
@@ -34,6 +43,7 @@ export const Signup = () => {
   const signup = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -44,7 +54,7 @@ export const Signup = () => {
 
       if (!file) {
         setLoading(false);
-        toast.error("Please select a valid file.");
+        toast.error("Please select a valid image file.");
         return;
       }
 
@@ -54,7 +64,12 @@ export const Signup = () => {
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          console.log("Upload is in progress:", snapshot.bytesTransferred, "of", snapshot.totalBytes);
+          console.log(
+            "Upload is in progress:",
+            snapshot.bytesTransferred,
+            "of",
+            snapshot.totalBytes
+          );
         },
         (error) => {
           console.error("Error during upload:", error);
@@ -63,7 +78,6 @@ export const Signup = () => {
         },
         async () => {
           try {
-
             const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
             console.log("Download URL:", downloadURL);
 
@@ -80,12 +94,12 @@ export const Signup = () => {
               displayName: userName,
               email,
               photoURL: downloadURL,
-              bills:[],
-              cart:{
-                cartItems:[],
-                totalAmount:0,
-                totalQuantily:0
-              }
+              bills: [],
+              cart: {
+                cartItems: [],
+                totalAmount: 0,
+                totalQuantily: 0,
+              },
             });
             console.log("User data stored in Firestore successfully.");
 
@@ -165,7 +179,11 @@ export const Signup = () => {
                   </FormGroup>
                   {preview && (
                     <div className="image-preview">
-                      <img src={preview} alt="Preview" style={{ maxWidth: "100%", marginBottom: "10px" }} />
+                      <img
+                        src={preview}
+                        alt="Preview"
+                        style={{ maxWidth: "100%", marginBottom: "10px" }}
+                      />
                     </div>
                   )}
                   <button type="submit" className="buy_btn auth__btn">
