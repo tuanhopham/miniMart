@@ -63,6 +63,7 @@ export const Signup = () => {
         },
         async () => {
           try {
+
             const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
             console.log("Download URL:", downloadURL);
 
@@ -79,6 +80,12 @@ export const Signup = () => {
               displayName: userName,
               email,
               photoURL: downloadURL,
+              bills:[],
+              cart:{
+                cartItems:[],
+                totalAmount:0,
+                totalQuantily:0
+              }
             });
             console.log("User data stored in Firestore successfully.");
 
