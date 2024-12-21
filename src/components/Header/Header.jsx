@@ -30,7 +30,6 @@ export const Header = () => {
   const menuRef = useRef(null);
   const photoURL = useSelector((state) => state.user.photoURL);
   const email = useSelector((state) => state.user.email);
-
   const handleScroll = () => {
     if (
       document.body.scrollTop > 80 ||
@@ -70,14 +69,14 @@ export const Header = () => {
       <Container>
         <Row>
           <div className="nav__wrapper">
-            <div className="logo">
-              <img src={logo} alt="logo" />
-              <div>
-                <NavLink to={""}>
+            <NavLink to={""}>
+              <div className="logo">
+                <img src={logo} alt="logo" />
+                <div>
                   <h1>Furniture Mart</h1>
-                </NavLink>
+                </div>
               </div>
-            </div>
+            </NavLink>
             <div className="navigation" ref={menuRef} onClick={menuToggle}>
               <ul className="menu">
                 {nav__link.map((item, index) => (
