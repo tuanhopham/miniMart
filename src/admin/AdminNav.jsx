@@ -3,7 +3,7 @@ import { Container, Row } from "reactstrap";
 import userIcon from "../assets/images/user-icon.png";
 import "../styles/admin-nav.css";
 
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 const admin__nav = [
   {
@@ -22,8 +22,6 @@ const admin__nav = [
     display: "All-Products",
     path: "/dashboard/all-products",
   },
-  
- 
 ];
 
 export const AdminNav = () => {
@@ -35,7 +33,9 @@ export const AdminNav = () => {
           <Container>
             <div className="admin__nav-wrapper-top">
               <div className="logo">
-                <h2>Furniture Mart</h2>
+                <NavLink to={""}>
+                  <h2>Furniture Mart</h2>
+                </NavLink>
               </div>
               <div className="search__box">
                 <input type="text" placeholder="Search...." />

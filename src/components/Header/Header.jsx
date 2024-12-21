@@ -10,7 +10,7 @@ import { Container, Row } from "reactstrap";
 import logo from "../../assets/images/eco-logo.png";
 import userIcon from "../../assets/images/user-icon.png";
 import { auth } from "../../firebase.config";
-import { userACtions } from './../../redux/slices/userSlice';
+import { userACtions } from "./../../redux/slices/userSlice";
 
 const nav__link = [
   { path: "home", display: "Home" },
@@ -30,7 +30,6 @@ export const Header = () => {
   const menuRef = useRef(null);
   const photoURL = useSelector((state) => state.user.photoURL);
   const email = useSelector((state) => state.user.email);
-
 
   const handleScroll = () => {
     if (
@@ -74,7 +73,9 @@ export const Header = () => {
             <div className="logo">
               <img src={logo} alt="logo" />
               <div>
-                <h1>Furniture Mart</h1>
+                <NavLink to={""}>
+                  <h1>Furniture Mart</h1>
+                </NavLink>
               </div>
             </div>
             <div className="navigation" ref={menuRef} onClick={menuToggle}>
@@ -119,17 +120,15 @@ export const Header = () => {
                   onClick={toggleProfileActions}
                 >
                   {email ? (
-                 
                     <div className="d-flex align-items-center justify-content-center flex-column">
-                    <span onClick={logout}>Logout</span>
-                    <Link to="/dashboard">Dashboard</Link>
-                    <Link to="/order">My Oder</Link>
+                      <span onClick={logout}>Logout</span>
+                      <Link to="/dashboard">Dashboard</Link>
+                      <Link to="/order">My Oder</Link>
                     </div>
                   ) : (
                     <div className="d-flex align-items-center justify-content-center flex-column">
                       <Link to="/signup">Signup</Link>
                       <Link to="/login">Login</Link>
-                      
                     </div>
                   )}
                 </div>
