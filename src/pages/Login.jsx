@@ -6,11 +6,13 @@ import { Col, Container, Form, FormGroup, Row } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import { auth } from "../firebase.config";
 import "../styles/login.css";
+import { Eye, EyeOff } from "lucide-react";
 
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -55,12 +57,22 @@ export const Login = () => {
                     />
                   </FormGroup>
                   <FormGroup className="form__group">
-                    <input
-                      type="password"
-                      placeholder="Enter your password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
+                  <div className="password-wrapper relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Enter your password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                      />
+                      <button
+                        type="button"
+                        className="icon-btn absolute right-4 top-2"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                      </button>
+                    </div>
                   </FormGroup>
                   <button type="submit" className="buy_btn auth__btn">
                     Login
