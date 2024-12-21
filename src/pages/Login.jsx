@@ -25,7 +25,7 @@ export const Login = () => {
         password
       );
       setLoading(false);
-      toast.success("Loign success");
+      toast.success("Login success");
       navigate("/checkout");
     } catch (error) {
       setLoading(false);
